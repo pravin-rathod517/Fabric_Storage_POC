@@ -3,7 +3,7 @@ name: Deploy to Microsoft Fabric
 on:
   push:
     branches:
-      - main  # Or your deployment branch
+      - main
 
 jobs:
   deploy:
@@ -13,13 +13,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install Node.js (required for Power BI CLI)
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Or latest LTS
+          node-version: '18'  # or latest LTS version
 
-      - name: Install Power BI CLI
-        run: npm install -g powerbi-cli
+      - name: Install Power BI CLI globally
+        run: |
+          npm install -g @microsoft/powerbi-cli
+          echo "$(npm bin -g)" >> $GITHUB_PATH
+          which pbi
+          pbi --version
 
       - name: Authenticate with Service Principal
         run: |
@@ -29,7 +33,7 @@ jobs:
             --client-secret "${{ secrets.CLIENT_SECRET }}" \
             --tenant "${{ secrets.TENANT_ID }}"
 
-      - name: Deploy PBIX report to Fabric
+      - name: Deploy PBIX file
         run: |
           pbi import report \
             --workspace-id "${{ secrets.WORKSPACE_ID }}" \
