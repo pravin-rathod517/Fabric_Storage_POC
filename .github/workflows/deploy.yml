@@ -14,19 +14,18 @@ jobs:
       - name: Install Power BI CLI
         run: |
           npm install -g powerbi-cli
-          echo "$(npm bin -g)" >> $GITHUB_PATH
-
+      
       - name: Authenticate with Service Principal
         run: |
-          pbi login \
+          powerbi login \
             --service-principal \
             --client-id ${{ secrets.CLIENT_ID }} \
             --client-secret ${{ secrets.CLIENT_SECRET }} \
             --tenant ${{ secrets.TENANT_ID }}
-
-      - name: Deploy .pbix file
+      
+      - name: Deploy .pbix file (Example)
         run: |
-          pbi import report \
+          powerbi import report \
             --workspace-id ${{ secrets.WORKSPACE_ID }} \
             --name "My Deployed Report" \
             --file "reports/my_report.pbix" \
