@@ -1,4 +1,4 @@
-name: Deploy to Microsoft Fabric
+name: Deploy PBIX to Power BI
 
 on:
   push:
@@ -7,35 +7,29 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest  # PowerShell support is best on Windows
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install .NET SDK (required for Power BI CLI)
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '7.0.x'  # Or 8.0.x if supported
-
-      - name: Install Power BI CLI
+      - name: Install Power BI PowerShell module
         run: |
-          dotnet tool install --global Microsoft.PowerBI.CLI
-          echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
-          pbi --version
+          Install-Module -Name MicrosoftPowerBIMgmt -Force -Scope CurrentUser
+        shell: pwsh
 
-      - name: Authenticate with Service Principal
+      - name: Login using Service Principal
         run: |
-          pbi login \
-            --service-principal \
-            --client-id "${{ secrets.CLIENT_ID }}" \
-            --client-secret "${{ secrets.CLIENT_SECRET }}" \
-            --tenant "${{ secrets.TENANT_ID }}"
+          $secpasswd = ConvertTo-SecureString "${{ secrets.CLIENT_SECRET }}" -AsPlainText -Force
+          $mycreds = New-Object System.Management.Automation.PSCredential ("${{ secrets.CLIENT_ID }}", $secpasswd)
+          Connect-PowerBIServiceAccount -ServicePrincipal -Credential $mycreds -Tenant "${{ secrets.TENANT_ID }}"
+        shell: pwsh
 
-      - name: Deploy PBIX file
+      - name: Import PBIX to workspace
         run: |
-          pbi import report \
-            --workspace-id "${{ secrets.WORKSPACE_ID }}" \
-            --name "My Deployed Report" \
-            --file "reports/my_report.pbix" \
-            --conflict "CreateOrOverwrite"
+          Import-PowerBIReport `
+            -Path "reports/my_report.pbix" `
+            -WorkspaceId "${{ secrets.WORKSPACE_ID }}" `
+            -Name "My Deployed Report" `
+            -ConflictAction CreateOrOverwrite
+        shell: pwsh
