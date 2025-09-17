@@ -10,32 +10,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # or latest LTS version
+          node-version: '18'
 
-      - name: Install Power BI CLI globally
+      - name: Authenticate with Power BI CLI (Service Principal)
         run: |
-          npm install -g @microsoft/powerbi-cli
-          echo "$(npm bin -g)" >> $GITHUB_PATH
-          which pbi
-          pbi --version
-
-      - name: Authenticate with Service Principal
-        run: |
-          pbi login \
+          npx powerbi-cli login \
             --service-principal \
             --client-id "${{ secrets.CLIENT_ID }}" \
             --client-secret "${{ secrets.CLIENT_SECRET }}" \
             --tenant "${{ secrets.TENANT_ID }}"
 
-      - name: Deploy PBIX file
+      - name: Deploy PBIX report
         run: |
-          pbi import report \
+          npx powerbi-cli import report \
             --workspace-id "${{ secrets.WORKSPACE_ID }}" \
             --name "My Deployed Report" \
             --file "reports/my_report.pbix" \
