@@ -13,22 +13,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Authenticate with Power BI CLI (Service Principal)
+      - name: Download Power BI CLI
         run: |
-          npx powerbi-cli login \
+          curl -L https://aka.ms/pbi-tools-cli-linux -o pbi
+          chmod +x pbi
+          sudo mv pbi /usr/local/bin/pbi
+          pbi --version
+
+      - name: Authenticate with Service Principal
+        run: |
+          pbi login \
             --service-principal \
             --client-id "${{ secrets.CLIENT_ID }}" \
             --client-secret "${{ secrets.CLIENT_SECRET }}" \
             --tenant "${{ secrets.TENANT_ID }}"
 
-      - name: Deploy PBIX report
+      - name: Deploy PBIX file
         run: |
-          npx powerbi-cli import report \
+          pbi import report \
             --workspace-id "${{ secrets.WORKSPACE_ID }}" \
             --name "My Deployed Report" \
             --file "reports/my_report.pbix" \
