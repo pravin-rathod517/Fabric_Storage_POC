@@ -1,33 +1,33 @@
-name: Deploy PBIX to Power BI
+name: Deploy to Microsoft Fabric
 
 on:
   push:
     branches:
-      - main
+      - main  # or your branch name
 
 jobs:
   deploy:
-    runs-on: windows-latest
-
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-        
-
-      - name: Import PBIX to workspace
-        shell: pwsh
+      - name: Install Power BI CLI
         run: |
-          # Install and import module
-          Install-Module -Name MicrosoftPowerBIMgmt.Reports -Force -Scope CurrentUser
-          Import-Module MicrosoftPowerBIMgmt.Reports
-          
-          # Authenticate
-          $secpasswd = ConvertTo-SecureString "<CLIENT_SECRET>" -AsPlainText -Force
-          $mycreds = New-Object System.Management.Automation.PSCredential ("<CLIENT_ID>", $secpasswd)
-          Connect-PowerBIServiceAccount -ServicePrincipal -Credential $mycreds -Tenant "<TENANT_ID>"
-          
-          # Import (publish) the report using New-PowerBIReport
-          New-PowerBIReport -Path "reports/SUPERSTORE.pbix" -WorkspaceId "<WORKSPACE_ID>" -Name "My Deployed Report" -ConflictAction CreateOrOverwrite
+          npm install -g powerbi-cli
 
-              shell: pwsh
+      - name: Authenticate with Service Principal
+        run: |
+          pbi login \
+            --service-principal \
+            --client-id ${{ secrets.CLIENT_ID }} \
+            --client-secret ${{ secrets.CLIENT_SECRET }} \
+            --tenant ${{ secrets.TENANT_ID }}
+
+      - name: Deploy .pbix file (Example)
+        run: |
+          pbi import report \
+            --workspace-id ${{ secrets.WORKSPACE_ID }} \
+            --name "My Deployed Report" \
+            --file "reports/my_report.pbix" \
+            --conflict "CreateOrOverwrite"
