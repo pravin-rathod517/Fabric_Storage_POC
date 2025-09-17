@@ -13,24 +13,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install Power BI PowerShell module
-        run: |
-          Install-Module -Name MicrosoftPowerBIMgmt -Force -Scope CurrentUser
-          Import-Module MicrosoftPowerBIMgmt.Reports
+      - name: Import PBIX to workspace
         shell: pwsh
-
-      - name: Login using Service Principal
         run: |
+          # Install the module if not already installed
+          Install-Module -Name MicrosoftPowerBIMgmt.Reports -Force -Scope CurrentUser
+      
+          # Import the module in this session
+          Import-Module MicrosoftPowerBIMgmt.Reports
+      
+          # Login with service principal
           $secpasswd = ConvertTo-SecureString "${{ secrets.CLIENT_SECRET }}" -AsPlainText -Force
           $mycreds = New-Object System.Management.Automation.PSCredential ("${{ secrets.CLIENT_ID }}", $secpasswd)
           Connect-PowerBIServiceAccount -ServicePrincipal -Credential $mycreds -Tenant "${{ secrets.TENANT_ID }}"
-        shell: pwsh
-
-      - name: Import PBIX to workspace
-        run: |
+      
+          # Now import the report
           Import-PowerBIReport `
             -Path "reports/SUPERSTORE.pbix" `
             -WorkspaceId "${{ secrets.WORKSPACE_ID }}" `
             -Name "My Deployed Report" `
             -ConflictAction CreateOrOverwrite
-        shell: pwsh
+      
+              shell: pwsh
