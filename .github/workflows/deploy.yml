@@ -1,13 +1,6 @@
-name: Deploy PBIX to Power BI
-
-on:
-  push:
-    branches:
-      - main
-
 jobs:
   deploy:
-    runs-on: windows-latest  # PowerShell support is best on Windows
+    runs-on: windows-latest
 
     steps:
       - name: Checkout code
@@ -15,7 +8,8 @@ jobs:
 
       - name: Install Power BI PowerShell module
         run: |
-          Install-Module -Name MicrosoftPowerBIMgmt -Force -Scope CurrentUser
+          Install-Module -Name MicrosoftPowerBIMgmt.Reports -Force -Scope CurrentUser
+          Import-Module MicrosoftPowerBIMgmt.Reports
         shell: pwsh
 
       - name: Login using Service Principal
