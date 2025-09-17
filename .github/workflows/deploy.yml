@@ -3,7 +3,7 @@ name: Deploy to Microsoft Fabric
 on:
   push:
     branches:
-      - main  # or your branch name
+      - main
 
 jobs:
   deploy:
@@ -15,6 +15,7 @@ jobs:
       - name: Install Power BI CLI
         run: |
           npm install -g powerbi-cli
+          echo "$(npm bin -g)" >> $GITHUB_PATH
 
       - name: Authenticate with Service Principal
         run: |
