@@ -18,21 +18,16 @@ jobs:
       - name: Import PBIX to workspace
         shell: pwsh
         run: |
-          # Install the module if not already installed
-          Install-Module -Name MicrosoftPowerBIMgmt -Force -Scope CurrentUser
-          Import-Module MicrosoftPowerBIMgmt.Reports -Verbose
+          # Install and import module
+          Install-Module -Name MicrosoftPowerBIMgmt.Reports -Force -Scope CurrentUser
+          Import-Module MicrosoftPowerBIMgmt.Reports
+          
+          # Authenticate
+          $secpasswd = ConvertTo-SecureString "<CLIENT_SECRET>" -AsPlainText -Force
+          $mycreds = New-Object System.Management.Automation.PSCredential ("<CLIENT_ID>", $secpasswd)
+          Connect-PowerBIServiceAccount -ServicePrincipal -Credential $mycreds -Tenant "<TENANT_ID>"
+          
+          # Import (publish) the report using New-PowerBIReport
+          New-PowerBIReport -Path "reports/SUPERSTORE.pbix" -WorkspaceId "<WORKSPACE_ID>" -Name "My Deployed Report" -ConflictAction CreateOrOverwrite
 
-      
-          # Login with service principal
-          $secpasswd = ConvertTo-SecureString "${{ secrets.CLIENT_SECRET }}" -AsPlainText -Force
-          $mycreds = New-Object System.Management.Automation.PSCredential ("${{ secrets.CLIENT_ID }}", $secpasswd)
-          Connect-PowerBIServiceAccount -ServicePrincipal -Credential $mycreds -Tenant "${{ secrets.TENANT_ID }}"
-      
-          # Now import the report
-          Import-PowerBIReport `
-            -Path "reports/SUPERSTORE.pbix" `
-            -WorkspaceId "${{ secrets.WORKSPACE_ID }}" `
-            -Name "My Deployed Report" `
-            -ConflictAction CreateOrOverwrite
-      
               shell: pwsh
