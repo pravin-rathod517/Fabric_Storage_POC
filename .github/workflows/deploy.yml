@@ -1,1 +1,33 @@
+name: Deploy to Microsoft Fabric
 
+on:
+  push:
+    branches:
+      - main  # or your branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Power BI CLI
+        run: |
+          npm install -g powerbi-cli
+
+      - name: Authenticate with Service Principal
+        run: |
+          pbi login \
+            --service-principal \
+            --client-id ${{ secrets.CLIENT_ID }} \
+            --client-secret ${{ secrets.CLIENT_SECRET }} \
+            --tenant ${{ secrets.TENANT_ID }}
+
+      - name: Deploy .pbix file (Example)
+        run: |
+          pbi import report \
+            --workspace-id ${{ secrets.WORKSPACE_ID }} \
+            --name "My Deployed Report" \
+            --file "reports/my_report.pbix" \
+            --conflict "CreateOrOverwrite"
