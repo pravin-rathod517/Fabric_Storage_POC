@@ -15,20 +15,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2. Setup Node.js (required for powerbi-cli)
+      # 2. Setup Node.js (required for pbicli)
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      # 3. Install Power BI CLI
+      # 3. Install Power BI CLI (Node.js version)
       - name: Install Power BI CLI
         run: npm install -g powerbi-cli
 
       # 4. Authenticate with Power BI Service
       - name: Authenticate with Power BI
         run: |
-          powerbi login --service-principal \
+          pbicli login --service-principal \
             -u ${{ secrets.POWERBI_CLIENT_ID }} \
             -p ${{ secrets.POWERBI_CLIENT_SECRET }} \
             -o ${{ secrets.POWERBI_TENANT_ID }}
@@ -36,7 +36,7 @@ jobs:
       # 5. Deploy PBIX report to workspace
       - name: Deploy PBIX Report
         run: |
-          powerbi import \
+          pbicli import \
             --file "Power BI Reports/Envu_DQ_PowerBI_Dashboard_3.3.pbix" \
             --name "Envu DQ Dashboard" \
             --workspace ${{ secrets.POWERBI_WORKSPACE_ID }}
