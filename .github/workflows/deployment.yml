@@ -3,19 +3,22 @@ name: Deploy to Microsoft Fabric
 on:
   push:
     branches:
-      - Development  # or your branch name
+      - main   # or your branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
+      # 1️⃣ Checkout repo files
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # 2️⃣ Install Power BI CLI
       - name: Install Power BI CLI
-        run: |
-          npm install -g powerbi-cli
+        run: npm install -g powerbi-cli
 
+      # 3️⃣ Authenticate with Service Principal
       - name: Authenticate with Service Principal
         run: |
           pbi login \
@@ -24,10 +27,26 @@ jobs:
             --client-secret ${{ secrets.CLIENT_SECRET }} \
             --tenant ${{ secrets.TENANT_ID }}
 
-      - name: Deploy .pbix file (Example)
+      # 4️⃣ Deploy report (.pbix)
+      - name: Deploy Report
         run: |
           pbi import report \
             --workspace-id ${{ secrets.WORKSPACE_ID }} \
             --name "My Deployed Report" \
             --file "reports/my_report.pbix" \
             --conflict "CreateOrOverwrite"
+
+      # 5️⃣ Refresh dataset (after deployment)
+      - name: Refresh Dataset
+        run: |
+          pbi dataset refresh \
+            --workspace-id ${{ secrets.WORKSPACE_ID }} \
+            --dataset-id ${{ secrets.DATASET_ID }}
+
+      # 6️⃣ (Optional) Trigger a Fabric pipeline
+      - name: Trigger Pipeline
+        if: always()   # runs even if refresh fails
+        run: |
+          pbi pipeline run \
+            --workspace-id ${{ secrets.WORKSPACE_ID }} \
+            --pipeline-id ${{ secrets.PIPELINE_ID }}
