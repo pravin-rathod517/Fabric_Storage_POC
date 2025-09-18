@@ -28,8 +28,8 @@ jobs:
         run: |
           npx powerbi-cli import report \
             --workspace-id ${{ secrets.WORKSPACE_ID }} \
-            --name "My Deployed Report" \
-            --file "reports/my_report.pbix" \
+            --name "SUPERSTORE Report" \
+            --file "reports/SUPERSTORE.pbix" \
             --conflict "CreateOrOverwrite"
 
       # 4️⃣ Refresh Dataset (Optional – remove if you don’t need it)
