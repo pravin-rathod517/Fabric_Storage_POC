@@ -3,50 +3,39 @@ name: Deploy to Microsoft Fabric
 on:
   push:
     branches:
-      - main   # or your branch
+      - main   # Change if you want another branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout repo files
+      # 1️⃣ Checkout repo files (your PBIX / notebooks etc.)
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2️⃣ Install Power BI CLI
-      - name: Install Power BI CLI
-        run: npm install -g powerbi-cli
-
-      # 3️⃣ Authenticate with Service Principal
+      # 2️⃣ Authenticate with Service Principal
       - name: Authenticate with Service Principal
         run: |
-          pbi login \
+          npx powerbi-cli login \
             --service-principal \
             --client-id ${{ secrets.CLIENT_ID }} \
             --client-secret ${{ secrets.CLIENT_SECRET }} \
             --tenant ${{ secrets.TENANT_ID }}
 
-      # 4️⃣ Deploy report (.pbix)
-      - name: Deploy Report
+      # 3️⃣ Deploy PBIX Report into Fabric Workspace
+      - name: Deploy PBIX Report
         run: |
-          pbi import report \
+          npx powerbi-cli import report \
             --workspace-id ${{ secrets.WORKSPACE_ID }} \
             --name "My Deployed Report" \
             --file "reports/my_report.pbix" \
             --conflict "CreateOrOverwrite"
 
-      # 5️⃣ Refresh dataset (after deployment)
+      # 4️⃣ Refresh Dataset (Optional – remove if you don’t need it)
       - name: Refresh Dataset
         run: |
-          pbi dataset refresh \
+          npx powerbi-cli dataset refresh \
             --workspace-id ${{ secrets.WORKSPACE_ID }} \
             --dataset-id ${{ secrets.DATASET_ID }}
 
-      # 6️⃣ (Optional) Trigger a Fabric pipeline
-      - name: Trigger Pipeline
-        if: always()   # runs even if refresh fails
-        run: |
-          pbi pipeline run \
-            --workspace-id ${{ secrets.WORKSPACE_ID }} \
-            --pipeline-id ${{ secrets.PIPELINE_ID }}
