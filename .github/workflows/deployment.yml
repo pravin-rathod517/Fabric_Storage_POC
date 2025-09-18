@@ -1,50 +1,42 @@
-name: Deploy to Microsoft Fabric
+name: Deploy Power BI Report to Fabric
 
 on:
+  workflow_dispatch:   # allows manual trigger
   push:
     branches:
-      - main   # Change if you want another branch
+      - main           # run when you push to main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout repo files (PBIX / Notebooks / Pipelines, etc.)
-      - name: Checkout code
+      # 1. Checkout your repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2️⃣ Install Power BI CLI
+      # 2. Setup Node.js (required for powerbi-cli)
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # 3. Install Power BI CLI
       - name: Install Power BI CLI
-        run: |
-          npm install -g powerbi-cli
+        run: npm install -g powerbi-cli
 
-      # 3️⃣ Authenticate with Service Principal
-      - name: Authenticate with Service Principal
+      # 4. Authenticate with Power BI Service
+      - name: Authenticate with Power BI
         run: |
-          pbi login \
-            --service-principal \
-            --client-id ${{ secrets.CLIENT_ID }} \
-            --client-secret ${{ secrets.CLIENT_SECRET }} \
-            --tenant ${{ secrets.TENANT_ID }}
+          powerbi login --service-principal \
+            -u ${{ secrets.POWERBI_CLIENT_ID }} \
+            -p ${{ secrets.POWERBI_CLIENT_SECRET }} \
+            -o ${{ secrets.POWERBI_TENANT_ID }}
 
-      # 4️⃣ (Optional Test) List Workspaces to confirm login works
-      - name: List Workspaces
-        run: |
-          pbi workspace list
-
-      # 5️⃣ Deploy PBIX Report
+      # 5. Deploy PBIX report to workspace
       - name: Deploy PBIX Report
         run: |
-          pbi import report \
-            --workspace-id ${{ secrets.WORKSPACE_ID }} \
-            --name "SUPERSTORE" \
-            --file "reports/SUPERSTORE.pbix" \
-            --conflict "CreateOrOverwrite"
-
-      # 6️⃣ (Optional) Refresh Dataset
-      - name: Refresh Dataset
-        run: |
-          pbi dataset refresh \
-            --workspace-id ${{ secrets.WORKSPACE_ID }} \
-            --dataset-id ${{ secrets.DATASET_ID }}
+          powerbi import report \
+            -f "Power BI Reports/Envu_DQ_PowerBI_Dashboard_3.3.pbix" \
+            -n "Envu DQ Dashboard" \
+            -w ${{ secrets.POWERBI_WORKSPACE_ID }}
