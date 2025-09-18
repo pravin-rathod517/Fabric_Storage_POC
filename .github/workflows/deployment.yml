@@ -29,14 +29,6 @@ jobs:
           pbi import report \
             --workspace-id ${{ secrets.WORKSPACE_ID }} \
             --name "My Deployed Report" \
-            --file "reports/my_report.pbix" \
+            --file "reports/Envu_DQ_PowerBI_Dashboard_3.3.pbix" \
             --conflict "CreateOrOverwrite"
 
-
-      # 5. Deploy PBIX report to workspace
-      - name: Deploy PBIX Report
-        run: |
-          pbicli import \
-            --file "Power BI Reports.Envu_DQ_PowerBI_Dashboard_3.3.pbix" \
-            --name "Envu_DQ_PowerBI_Dashboard_3.3.pbix" \
-            --workspace ${{ secrets.POWERBI_WORKSPACE_ID }}
