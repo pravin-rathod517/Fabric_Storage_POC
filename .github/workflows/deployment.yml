@@ -1,37 +1,37 @@
-name: Deploy Power BI Report to Fabric
+name: Deploy to Microsoft Fabric
 
 on:
-  workflow_dispatch:   # allows manual trigger
   push:
     branches:
-      - main           # run when you push to main
+      - main  # or your branch name
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-      # 1. Checkout your repository
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. Setup Node.js (required for pbicli)
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      # 3. Install Power BI CLI (Node.js version)
       - name: Install Power BI CLI
-        run: npm install -g powerbi-cli
-
-      # 4. Authenticate with Power BI Service
-      - name: Authenticate with Power BI
         run: |
-          pbicli login --service-principal \
-            -u ${{ secrets.POWERBI_CLIENT_ID }} \
-            -p ${{ secrets.POWERBI_CLIENT_SECRET }} \
-            -o ${{ secrets.POWERBI_TENANT_ID }}
+          npm install -g powerbi-cli
+
+      - name: Authenticate with Service Principal
+        run: |
+          pbi login \
+            --service-principal \
+            --client-id ${{ secrets.CLIENT_ID }} \
+            --client-secret ${{ secrets.CLIENT_SECRET }} \
+            --tenant ${{ secrets.TENANT_ID }}
+
+      - name: Deploy .pbix file (Example)
+        run: |
+          pbi import report \
+            --workspace-id ${{ secrets.WORKSPACE_ID }} \
+            --name "My Deployed Report" \
+            --file "reports/my_report.pbix" \
+            --conflict "CreateOrOverwrite"
+
 
       # 5. Deploy PBIX report to workspace
       - name: Deploy PBIX Report
