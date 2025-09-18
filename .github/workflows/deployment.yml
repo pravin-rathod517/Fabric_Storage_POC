@@ -28,7 +28,7 @@ jobs:
         run: |
           npx powerbi-cli import report \
             --workspace-id ${{ secrets.WORKSPACE_ID }} \
-            --name "SUPERSTORE Report" \
+            --name "SUPERSTORE" \
             --file "reports/SUPERSTORE.pbix" \
             --conflict "CreateOrOverwrite"
 
