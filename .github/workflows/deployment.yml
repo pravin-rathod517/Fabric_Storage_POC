@@ -36,7 +36,7 @@ jobs:
       # 5. Deploy PBIX report to workspace
       - name: Deploy PBIX Report
         run: |
-          powerbi import report \
-            -f "Power BI Reports/Envu_DQ_PowerBI_Dashboard_3.3.pbix" \
-            -n "Envu DQ Dashboard" \
-            -w ${{ secrets.POWERBI_WORKSPACE_ID }}
+          powerbi import \
+            --file "Power BI Reports/Envu_DQ_PowerBI_Dashboard_3.3.pbix" \
+            --name "Envu DQ Dashboard" \
+            --workspace ${{ secrets.POWERBI_WORKSPACE_ID }}
