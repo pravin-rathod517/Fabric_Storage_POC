@@ -21,9 +21,9 @@ jobs:
           python-version: '3.10'
  
       # 3. Install fabric-cicd
-      - name: Install fabric-cicd CLI
+      - name: Install fabric-cicd
         run: |
-          pip install --upgrade fabric-cicd
+          pip install fabric-cicd
  
       # 4. Deploy using Service Principal
       - name: Deploy Fabric Items
@@ -32,7 +32,7 @@ jobs:
           FABRIC_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
           FABRIC_TENANT_ID: ${{ secrets.TENANT_ID }}
         run: |
-          fabric_cicd deploy \
+          fabric-cicd deploy \
             --workspace "6415684f-f002-4fa6-9dd4-5b4ddbd2e90d" \
             --repository_directory . \
             --branch main
