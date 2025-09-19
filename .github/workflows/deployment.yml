@@ -1,26 +1,41 @@
 name: Deploy Fabric Items
-
+ 
 on:
   push:
     branches:
       - main
-
+ 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+ 
     steps:
-    - name: Checkout repo
+    # 1. Checkout repo
+    - name: Checkout repository
       uses: actions/checkout@v4
-
-    - name: Azure Login using Service Principal
+ 
+    # 2. Login with Service Principal (no subscription required)
+    - name: Azure Login (Service Principal, no subscription)
       uses: azure/login@v2
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-        allow-no-subscriptions: true   # Needed for Fabric (not subscription-scoped)
-
+        allow-no-subscriptions: true
+ 
+    # 3. Setup Python (ensures consistent environment)
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+ 
+    # 4. Install fabric-cicd
+    - name: Install fabric-cicd
+      run: |
+        pip install --upgrade fabric-cicd
+ 
+    # 5. Deploy Fabric items
     - name: Deploy Fabric Items
       run: |
-        pip install --upgrade fabric-cicd --user
-        export PATH=$PATH:$HOME/.local/bin
-        fabric-cicd deploy --workspace "<Fabric-Workspace-ID>" --repository_directory . --branch main
+        python -m fabric_cicd.cli deploy \
+          --workspace "<Fabric-Workspace-ID>" \
+          --repository_directory . \
+          --branch main
