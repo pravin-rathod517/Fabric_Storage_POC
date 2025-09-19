@@ -1,0 +1,38 @@
+name: Deploy to Microsoft Fabric
+ 
+on:
+  push:
+    branches:
+      - main   # Change if you want to deploy from another branch
+ 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      # 1. Checkout repo
+      - name: Checkout repository
+        uses: actions/checkout@v4
+ 
+      # 2. Setup Python
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+ 
+      # 3. Install fabric-cicd
+      - name: Install fabric-cicd CLI
+        run: |
+          pip install --upgrade fabric-cicd
+ 
+      # 4. Deploy using Service Principal
+      - name: Deploy Fabric Items
+        env:
+          FABRIC_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          FABRIC_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          FABRIC_TENANT_ID: ${{ secrets.TENANT_ID }}
+        run: |
+          fabric-cicd deploy \
+            --workspace "6415684f-f002-4fa6-9dd4-5b4ddbd2e90d" \
+            --repository_directory . \
+            --branch main
