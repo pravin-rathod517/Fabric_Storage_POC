@@ -21,6 +21,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install fabric_cicd
+          export WORKSPACE_ID=${{ secrets.WORKSPACE_ID }}
 
       - name: Run Fabric Publish Script
         env:
