@@ -16,6 +16,7 @@ target_workspace = FabricWorkspace(
     item_type_in_scope=item_types,
 )
 
+
 # Publish items
 publish_all_items(target_workspace)
 
