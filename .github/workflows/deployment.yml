@@ -19,26 +19,22 @@ jobs:
       - name: Install Power BI CLI
         run: |
           npm install -g powerbi-cli
-
-      # Step 3 - Authenticate using Service Principal
-      - name: Authenticate with Microsoft Fabric (Service Principal)
+      
+      - name: Authenticate with Service Principal
         run: |
-          pbi login \
+          powerbi login \
             --service-principal \
             --client-id ${{ secrets.CLIENT_ID }} \
             --client-secret ${{ secrets.CLIENT_SECRET }} \
             --tenant ${{ secrets.TENANT_ID }}
-
-      # Step 4 - Deploy Reports
-      - name: Deploy Reports
+      
+      - name: Deploy Report
         run: |
-          for file in reports/*.pbix; do
-            echo "Deploying report: $file"
-            pbi import report \
-              --workspace-id ${{ secrets.WORKSPACE_ID }} \
-              --name "$(basename "$file" .pbix)" \
-              --file "$file" \
-              --conflict CreateOrOverwrite
+          powerbi import report \
+            --workspace-id ${{ secrets.WORKSPACE_ID }} \
+            --name "My Deployed Report" \
+            --file "reports/my_report.pbix" \
+            --conflict CreateOrOverwrite
           done
 
       # Step 5 - Deploy Pipelines
