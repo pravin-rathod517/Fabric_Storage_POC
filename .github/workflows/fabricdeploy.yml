@@ -31,4 +31,3 @@ jobs:
           AZURE_CLIENT_ID: ${{ secrets.CLIENT_ID }}
           AZURE_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
         run: python fabric_publish.py
- 
