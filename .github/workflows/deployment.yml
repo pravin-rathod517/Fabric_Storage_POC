@@ -21,5 +21,6 @@ jobs:
 
     - name: Deploy Fabric Items
       run: |
-        pip install fabric-cicd
-        python -m fabric-cicd deploy --workspace "6415684f-f002-4fa6-9dd4-5b4ddbd2e90d" --repository_directory . --branch main
+        pip install fabric-cicd --user
+        export PATH=$PATH:~/.local/bin
+        fabric-cicd deploy --workspace "6415684f-f002-4fa6-9dd4-5b4ddbd2e90d" --repository_directory . --branch main
