@@ -1,60 +1,26 @@
-name: Deploy to Microsoft Fabric
+name: Deploy Fabric Items
 
 on:
   push:
     branches:
-      - main   # Change if you want another branch to trigger deployment
-  workflow_dispatch:   # Allows manual trigger from GitHub UI
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1 - Checkout repo
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout repo
+      uses: actions/checkout@v4
 
-      # Step 2 - Install Power BI CLI (used for Fabric deployments too)
-      - name: Install Power BI CLI
-        run: |
-          npm install -g powerbi-cli
-      
-      - name: Authenticate with Service Principal
-        run: |
-          powerbi login \
-            --service-principal \
-            --client-id ${{ secrets.CLIENT_ID }} \
-            --client-secret ${{ secrets.CLIENT_SECRET }} \
-            --tenant ${{ secrets.TENANT_ID }}
-      
-      - name: Deploy Report
-        run: |
-          powerbi import report \
-            --workspace-id ${{ secrets.WORKSPACE_ID }} \
-            --name "My Deployed Report" \
-            --file "reports/my_report.pbix" \
-            --conflict CreateOrOverwrite
-          done
+    - name: Azure Login using Service Principal
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.CLIENT_ID }}
+        tenant-id: ${{ secrets.TENANT_ID }}
+        client-secret: ${{ secrets.CLIENT_SECRET }}
 
-      # Step 5 - Deploy Pipelines
-      - name: Deploy Pipelines
-        run: |
-          for file in pipelines/*.json; do
-            echo "Deploying pipeline: $file"
-            pbi pipeline create \
-              --workspace-id ${{ secrets.WORKSPACE_ID }} \
-              --file "$file" \
-              --conflict CreateOrOverwrite
-          done
-
-      # Step 6 - Deploy Notebooks
-      - name: Deploy Notebooks
-        run: |
-          for file in notebooks/*.ipynb; do
-            echo "Deploying notebook: $file"
-            pbi notebook create \
-              --workspace-id ${{ secrets.WORKSPACE_ID }} \
-              --file "$file" \
-              --conflict CreateOrOverwrite
-          done
+    - name: Deploy Fabric Items
+      run: |
+        pip install fabric-cicd
+        fabric-cicd deploy --workspace "6415684f-f002-4fa6-9dd4-5b4ddbd2e90d" --repository_directory . --branch main
