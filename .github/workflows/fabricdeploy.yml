@@ -32,7 +32,7 @@ jobs:
           FABRIC_CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
           FABRIC_TENANT_ID: ${{ secrets.TENANT_ID }}
         run: |
-          fabric-cicd deploy \
+          fabric_cicd deploy \
             --workspace "6415684f-f002-4fa6-9dd4-5b4ddbd2e90d" \
             --repository_directory . \
             --branch main
