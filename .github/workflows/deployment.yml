@@ -16,9 +16,8 @@ jobs:
     - name: Azure Login using Service Principal
       uses: azure/login@v2
       with:
-        client-id: ${{ secrets.CLIENT_ID }}
-        tenant-id: ${{ secrets.TENANT_ID }}
-        client-secret: ${{ secrets.CLIENT_SECRET }}
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        allow-no-subscriptions: true   # Needed for Fabric (not subscription-scoped)
 
     - name: Deploy Fabric Items
       run: |
