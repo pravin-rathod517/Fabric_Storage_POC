@@ -22,7 +22,8 @@
 
 # CELL ********************
 
-print("Hello World")
+print('Hello')
+
 
 # METADATA ********************
 
