@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/variableLibrary/definition/valueSet/1.0.0/schema.json",
+  "name": "Test",
+  "variableOverrides": [
+    {
+      "name": "Bronze_DataBase_Name",
+      "value": "Bronze_UAT"
+    },
+    {
+      "name": "Silver_DataBase_Name",
+      "value": "Silver_UAT"
+    },
+    {
+      "name": "workspaceid",
+      "value": ""
+    },
+    {
+      "name": "Bronze_Lakehouse_ID",
+      "value": ""
+    },
+    {
+      "name": "Silver_Lakehouse_ID",
+      "value": ""
+    },
+    {
+      "name": "NB_Data_Tranfer_Table",
+      "value": "contact"
+    },
+    {
+      "name": "Bronze_Lakehouse_SQL_ID",
+      "value": ""
+    },
+    {
+      "name": "Silver_Lakehouse_SQL_ID",
+      "value": ""
+    }
+  ]
+}
