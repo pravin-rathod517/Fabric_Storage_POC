@@ -12,15 +12,15 @@
     },
     {
       "name": "workspaceid",
-      "value": ""
+      "value": "12bb374a-8ca0-479e-a966-40405d9a4aba"
     },
     {
       "name": "Bronze_Lakehouse_ID",
-      "value": ""
+      "value": "0b1aa981-a4da-44da-baf3-aebdf6b10a1c"
     },
     {
       "name": "Silver_Lakehouse_ID",
-      "value": ""
+      "value": "d4f6f6c4-6c9e-4489-8390-404576fdeac6"
     },
     {
       "name": "NB_Data_Tranfer_Table",
@@ -28,11 +28,11 @@
     },
     {
       "name": "Bronze_Lakehouse_SQL_ID",
-      "value": ""
+      "value": "3klz7u5s3oqebfsrqkpjercbge-yzumfi2xazwetlrz542hxtfzme.datawarehouse.fabric.microsoft.com"
     },
     {
       "name": "Silver_Lakehouse_SQL_ID",
-      "value": ""
+      "value": "3klz7u5s3oqebfsrqkpjercbge-yzumfi2xazwetlrz542hxtfzme.datawarehouse.fabric.microsoft.com"
     }
   ]
 }
