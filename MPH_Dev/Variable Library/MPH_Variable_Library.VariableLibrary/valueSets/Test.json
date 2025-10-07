@@ -33,6 +33,10 @@
     {
       "name": "Silver_Lakehouse_SQL_ID",
       "value": "3klz7u5s3oqebfsrqkpjercbge-yzumfi2xazwetlrz542hxtfzme.datawarehouse.fabric.microsoft.com"
+    },
+    {
+      "name": "Fabric_Link_connection",
+      "value": "8a374e95-3371-4d31-a440-f1600be89e13"
     }
   ]
 }
