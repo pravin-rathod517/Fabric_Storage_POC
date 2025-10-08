@@ -14,6 +14,8 @@
 MPH_Variable_Library = notebookutils.variableLibrary.getLibrary("MPH_Variable_Library")
 table_path = f"abfss://{MPH_Variable_Library.workspaceid}@onelake.dfs.fabric.microsoft.com/{MPH_Variable_Library.Bronze_Lakehouse_ID}/Tables/{MPH_Variable_Library.NB_Data_Tranfer_Table}"
 
+
+print(table_path)
 df_contact = spark.read.format("delta").load(table_path)
 display(df_contact)
 
