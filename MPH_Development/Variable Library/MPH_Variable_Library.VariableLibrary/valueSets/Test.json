@@ -1,0 +1,42 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/variableLibrary/definition/valueSet/1.0.0/schema.json",
+  "name": "Test",
+  "variableOverrides": [
+    {
+      "name": "Bronze_DataBase_Name",
+      "value": "Bronze_UAT"
+    },
+    {
+      "name": "Silver_DataBase_Name",
+      "value": "Silver_UAT"
+    },
+    {
+      "name": "workspaceid",
+      "value": "12bb374a-8ca0-479e-a966-40405d9a4aba"
+    },
+    {
+      "name": "Bronze_Lakehouse_ID",
+      "value": "0b1aa981-a4da-44da-baf3-aebdf6b10a1c"
+    },
+    {
+      "name": "Silver_Lakehouse_ID",
+      "value": "d4f6f6c4-6c9e-4489-8390-404576fdeac6"
+    },
+    {
+      "name": "NB_Data_Tranfer_Table",
+      "value": "contact"
+    },
+    {
+      "name": "Bronze_Lakehouse_SQL_ID",
+      "value": "3klz7u5s3oqebfsrqkpjercbge-yzumfi2xazwetlrz542hxtfzme.datawarehouse.fabric.microsoft.com"
+    },
+    {
+      "name": "Silver_Lakehouse_SQL_ID",
+      "value": "3klz7u5s3oqebfsrqkpjercbge-yzumfi2xazwetlrz542hxtfzme.datawarehouse.fabric.microsoft.com"
+    },
+    {
+      "name": "Fabric_Link_connection",
+      "value": "8a374e95-3371-4d31-a440-f1600be89e13"
+    }
+  ]
+}
