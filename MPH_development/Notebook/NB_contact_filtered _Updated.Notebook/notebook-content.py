@@ -70,3 +70,18 @@ df_filtered.write.format("delta").mode("overwrite").save(output_table_path)
 # META   "language": "python",
 # META   "language_group": "synapse_pyspark"
 # META }
+
+# CELL ********************
+
+# Path to save the table (can be same or new table)
+output_table_path = f"abfss://{MPH_Variable_Library.workspaceid}@onelake.dfs.fabric.microsoft.com/{MPH_Variable_Library.Bronze_Lakehouse_ID}/Tables/{MPH_Variable_Library.NB_Data_Tranfer_Table}_Filtered/"
+
+# Write the DataFrame as Delta table
+df_filtered.write.format("delta").mode("overwrite").save(output_table_path)
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
