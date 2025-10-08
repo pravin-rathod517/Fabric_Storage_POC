@@ -70,3 +70,14 @@ df_filtered.write.format("delta").mode("overwrite").save(output_table_path)
 # META   "language": "python",
 # META   "language_group": "synapse_pyspark"
 # META }
+
+# CELL ********************
+
+Print("Hello")
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
