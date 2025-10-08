@@ -1,0 +1,95 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/variableLibrary/definition/variables/1.0.0/schema.json",
+  "variables": [
+    {
+      "name": "workspaceid",
+      "note": "",
+      "type": "String",
+      "value": "a3c268c6-0657-496c-ae39-ef347bccb961"
+    },
+    {
+      "name": "Bronze_Lakehouse_ID",
+      "note": "",
+      "type": "String",
+      "value": "a7cfb5ba-45e5-47c2-805c-7b37f7d71533"
+    },
+    {
+      "name": "Silver_Lakehouse_ID",
+      "note": "",
+      "type": "String",
+      "value": "690e21ae-65e8-4f7f-8a5c-05413cfa5c12"
+    },
+    {
+      "name": "NB_Data_Tranfer_Table",
+      "note": "",
+      "type": "String",
+      "value": "contact"
+    },
+    {
+      "name": "Bronze_Lakehouse_SQL_ID",
+      "note": "",
+      "type": "String",
+      "value": "3klz7u5s3oqebfsrqkpjercbge-yzumfi2xazwetlrz542hxtfzme.datawarehouse.fabric.microsoft.com"
+    },
+    {
+      "name": "Silver_Lakehouse_SQL_ID",
+      "note": "",
+      "type": "String",
+      "value": "3klz7u5s3oqebfsrqkpjercbge-yzumfi2xazwetlrz542hxtfzme.datawarehouse.fabric.microsoft.com"
+    },
+    {
+      "name": "Bronze_DataBase_Name",
+      "note": "",
+      "type": "String",
+      "value": "Bronze_dev"
+    },
+    {
+      "name": "Silver_DataBase_Name",
+      "note": "",
+      "type": "String",
+      "value": "Silver_Dev"
+    },
+    {
+      "name": "Fabric_Link_connection",
+      "note": "",
+      "type": "String",
+      "value": "8a374e95-3371-4d31-a440-f1600be89e13"
+    },
+    {
+      "name": "SQL_connectionID",
+      "note": "",
+      "type": "String",
+      "value": "1ac83635-53f8-4da0-af79-64e8a005dee9"
+    },
+    {
+      "name": "WHID",
+      "note": "",
+      "type": "String",
+      "value": "8dc2e239-daef-4bde-818a-9120b634ebb3"
+    },
+    {
+      "name": "Mirrored_WH_ID",
+      "note": "",
+      "type": "String",
+      "value": "9de4814d-5c4d-4d22-8cc1-1b0ba70141a1"
+    },
+    {
+      "name": "Mirrored_WH_SQL_ID",
+      "note": "",
+      "type": "String",
+      "value": "3klz7u5s3oqebfsrqkpjercbge-j5ubkzac6cte7houlng5xuxjbu.datawarehouse.fabric.microsoft.com"
+    },
+    {
+      "name": "Mirror_Workspace_ID",
+      "note": "",
+      "type": "String",
+      "value": "6415684f-f002-4fa6-9dd4-5b4ddbd2e90d"
+    },
+    {
+      "name": "Bronze_Schema",
+      "note": "",
+      "type": "String",
+      "value": "dbo"
+    }
+  ]
+}
