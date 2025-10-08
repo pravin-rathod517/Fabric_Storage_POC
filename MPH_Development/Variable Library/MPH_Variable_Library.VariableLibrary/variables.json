@@ -41,13 +41,13 @@
       "name": "Bronze_DataBase_Name",
       "note": "",
       "type": "String",
-      "value": "Bronze_dev"
+      "value": "Bronze"
     },
     {
       "name": "Silver_DataBase_Name",
       "note": "",
       "type": "String",
-      "value": "Silver_Dev"
+      "value": "Silver"
     },
     {
       "name": "Fabric_Link_connection",

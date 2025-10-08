@@ -4,11 +4,11 @@
   "variableOverrides": [
     {
       "name": "Bronze_DataBase_Name",
-      "value": "Bronze_UAT"
+      "value": "Bronze"
     },
     {
       "name": "Silver_DataBase_Name",
-      "value": "Silver_UAT"
+      "value": "Silver"
     },
     {
       "name": "workspaceid",
@@ -16,11 +16,11 @@
     },
     {
       "name": "Bronze_Lakehouse_ID",
-      "value": "0b1aa981-a4da-44da-baf3-aebdf6b10a1c"
+      "value": "244be62e-71dc-466c-a7e4-7db77e811df9"
     },
     {
       "name": "Silver_Lakehouse_ID",
-      "value": "d4f6f6c4-6c9e-4489-8390-404576fdeac6"
+      "value": "fb059697-6d51-4b97-92a5-d00fb89908c8"
     },
     {
       "name": "NB_Data_Tranfer_Table",
@@ -28,11 +28,11 @@
     },
     {
       "name": "Bronze_Lakehouse_SQL_ID",
-      "value": "3klz7u5s3oqebfsrqkpjercbge-yzumfi2xazwetlrz542hxtfzme.datawarehouse.fabric.microsoft.com"
+      "value": "3klz7u5s3oqebfsrqkpjercbge-ji33wevarspepklgibaf3gskxi.datawarehouse.fabric.microsoft.com"
     },
     {
       "name": "Silver_Lakehouse_SQL_ID",
-      "value": "3klz7u5s3oqebfsrqkpjercbge-yzumfi2xazwetlrz542hxtfzme.datawarehouse.fabric.microsoft.com"
+      "value": "3klz7u5s3oqebfsrqkpjercbge-ji33wevarspepklgibaf3gskxi.datawarehouse.fabric.microsoft.com"
     },
     {
       "name": "Fabric_Link_connection",
