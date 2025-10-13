@@ -17,7 +17,7 @@ table_path = f"abfss://{MPH_Variable_Library.workspaceid}@onelake.dfs.fabric.mic
 
 print(table_path)
 df_contact = spark.read.format("delta").load(table_path)
-display(df_contact)
+display(df_contact) 
 
 # METADATA ********************
 
