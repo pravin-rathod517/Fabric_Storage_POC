@@ -1,1 +1,15 @@
-[]
+[
+  {
+    "name": "contact",
+    "path": "/Tables",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/contact",
+        "itemId": "f7d71533-7b37-805c-47c2-45e5a7cfb5ba",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "artifactType": "Lakehouse"
+      }
+    }
+  }
+]
