@@ -11,6 +11,17 @@
 
 # CELL ********************
 
+V1
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# CELL ********************
+
 MPH_Variable_Library = notebookutils.variableLibrary.getLibrary("MPH_Variable_Library")
 table_path = f"abfss://{MPH_Variable_Library.workspaceid}@onelake.dfs.fabric.microsoft.com/{MPH_Variable_Library.Bronze_Lakehouse_ID}/Tables/{MPH_Variable_Library.NB_Data_Tranfer_Table}"
 
