@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "Notebook_CherryPick"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c8404fd6-7d8f-a1c1-40d9-2f32148757e2"
+  }
+}
