@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "name": "OptionsetMetadata",
+    "path": "/Tables",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/OptionsetMetadata",
+        "itemId": "143e8815-e9f1-453a-8911-60672e39aab1",
+        "workspaceId": "6415684f-f002-4fa6-9dd4-5b4ddbd2e90d"
+      }
+    }
+  },
+  {
+    "name": "GlobalOptionsetMetadata",
+    "path": "/Tables",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/GlobalOptionsetMetadata",
+        "itemId": "143e8815-e9f1-453a-8911-60672e39aab1",
+        "workspaceId": "6415684f-f002-4fa6-9dd4-5b4ddbd2e90d"
+      }
+    }
+  }
+]
