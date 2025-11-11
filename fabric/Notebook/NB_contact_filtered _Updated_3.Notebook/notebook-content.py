@@ -33,7 +33,7 @@ df_filtered = df_contact.filter(
     (df_contact.Gender == "Male")
 )
 
-display(df_filtering)
+display(df_filtered)
 
 # METADATA ********************
 
